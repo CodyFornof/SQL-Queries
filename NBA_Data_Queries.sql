@@ -1,4 +1,4 @@
--- This Query uses Champions_Data at https://github.com/CodyFornof/SQL-Queries/blob/main/champions_data.csv
+-- This Query uses NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv
 
 SELECT DISTINCT year, team
 FROM "codyfornof/championsData"."championsdata"
@@ -15,7 +15,7 @@ CAST(draft_number As INT) AS drafted_overall
 		ORDER BY CAST(draft_number As INT);
 
 
--- QUERY USES Champions_Data at https://github.com/CodyFornof/SQL-Queries/blob/main/champions_data.csv
+-- This Query uses NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv
 
 SELECT players.player,
 players>born,
@@ -30,3 +30,16 @@ FROM "cfornof/SQL_Data"."players" AS players
     ON stats.players = players.player
   WHERE birth_city = 'Los Angeles'
     OR birth_city = 'New York';
+    
+-- QUERY USES NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv
+--QUERY USES PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+
+SELECT DISTINCT champions.Year,
+champions.team,
+players.player,
+players.pos,
+players.age
+FROM NBA_Data.dbo.PlayersStatistics AS players
+	RIGHT JOIN NBA_Data.dbo.NBA_Championship_Teams AS champions
+		ON champions.team = players.tm AND champions.Year = players.Year;
+		
