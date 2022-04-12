@@ -43,3 +43,16 @@ FROM NBA_Data.dbo.PlayersStatistics AS players
 	RIGHT JOIN NBA_Data.dbo.NBA_Championship_Teams AS champions
 		ON champions.team = players.tm AND champions.Year = players.Year;
 		
+--QUERY USES PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+
+SELECT pos,
+player,
+year,
+tm,
+age,
+pts,
+g
+FROM NBA_Data.dbo.PlayersStatistics AS players
+WHERE players.tm != 'TOT'
+ORDER BY CAST(pts As INT) DESC;
+		
