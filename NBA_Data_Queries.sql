@@ -55,4 +55,21 @@ g
 FROM NBA_Data.dbo.PlayersStatistics AS players
 WHERE players.tm != 'TOT'
 ORDER BY CAST(pts As INT) DESC;
-		
+
+
+--QUERY USES PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+--QUERY USES abbreviation.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/Abbreviations.csv
+
+SELECT pos,
+player,
+year,
+tm,
+ab.abbreviation,
+age,
+pts,
+g
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+INNER JOIN NBA_Data.dbo.abbreviation AS ab
+	ON stat.tm = ab.team
+ORDER BY CAST(pts As INT) DESC;
+
