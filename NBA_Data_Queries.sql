@@ -73,3 +73,11 @@ INNER JOIN NBA_Data.dbo.abbreviation AS ab
 	ON stat.tm = ab.team
 ORDER BY CAST(pts As INT) DESC;
 
+-- QUERY USES NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv
+
+SELECT team,
+year,
+game
+FROM "codyfornof/championsData"."championsdata"
+WHERE game = 7;
+
