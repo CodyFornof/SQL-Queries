@@ -81,3 +81,14 @@ game
 FROM "codyfornof/championsData"."championsdata"
 WHERE game = 7;
 
+--QUERY USES PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+
+SELECT Year,
+Player,
+pos,
+age,
+tm,
+pts,
+[3PA]
+FROM NBA_Data.dbo.PlayersStatistics
+ORDER BY  CAST([3PA] As INT) DESC;
