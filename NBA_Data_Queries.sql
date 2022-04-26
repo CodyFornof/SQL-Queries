@@ -143,9 +143,12 @@ SELECT stats1.player_name AS Name,
 				AND CAST(stats1.age As decimal) =  CAST(ROUND(stats2.Age,0,1) AS INT)
 		ORDER BY CAST(stats2.year AS INT) DESC, CAST(stats1.pts AS decimal) DESC;
 
---LEFT Join Query
---Database: 
---Paste Query Here
+--LEFT Join Query: Shows Champions each year since 1980, and Joins their abbreviations
+--Database: NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv AND abbreviation.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/Abbreviations.csv
+SELECT DISTINCT Year, champs.Team, ab.Abbreviation
+	FROM NBA_Data.dbo.NBA_Championship_Teams AS champs
+		LEFT JOIN NBA_Data.dbo.abbreviation AS ab
+			ON champs.Team = ab.Team;
 
 --RIGHT Join Query
 --Database: 
