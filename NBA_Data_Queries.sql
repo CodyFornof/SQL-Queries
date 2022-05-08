@@ -151,28 +151,81 @@ SELECT DISTINCT Year, champs.Team, ab.Abbreviation
 			ON champs.Team = ab.Team;
 
 --RIGHT Join Query
---Database: 
---Paste Query Here
+--Database: NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv AND PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+SELECT DISTINCT champs.year,
+	stat.player, 
+	stat.pos, 
+	stat.age,
+	champs.Team
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+RIGHT JOIN NBA_Data.dbo.NBA_Championship_Teams AS champs
+	ON champs.year = stat.Year AND stat.tm = champs.team
+WHERE player IS NOT NULL;
 
 --FULL Join Query
---Database: 
---Paste Query Here
+--Database: NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv AND PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+SELECT stat.year,
+stat.tm,
+stat.Player,
+stat.pos,
+stat.age,
+champs.team AS Championship_Team
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+	FULL JOIN NBA_Data.dbo.NBA_Championship_Teams AS champs
+		ON stat.year = champs.year AND stat.tm = champs.team
+ORDER BY stat.year DESC;
 
 --CROSS Join Query
---Database: 
---Paste Query Here
+--Database: NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv AND PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv
+SELECT stat.year,
+	stat.tm,
+	stat.Player,
+	stat.pos,
+	stat.age,
+	champs.team,
+	champs.year
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+	CROSS JOIN NBA_Data.dbo.NBA_Championship_Teams AS champs
+WHERE stat.player = 'Nick Young'
 
 --UNION Query
---Database: 
---Paste Query Here
+--Database: NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv AND NBA_Lost_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Lost_Championship_Teams.csv
+SELECT *
+	FROM NBA_Data.dbo.NBA_Championship_Teams
+UNION
+SELECT *
+	FROM NBA_Data.dbo.NBA_Lost_Championship_Teams
+		ORDER BY year DESC, Game;
 
 --INTERSECT Query
---Database: 
---Paste Query Here
+--Database: PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv AND all_seasons.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/all_seasons.csv
+SELECT DISTINCT Player AS Name
+FROM NBA_Data.dbo.PlayersStatistics
+	INTERSECT
+SELECT DISTINCT player_name AS Name
+FROM NBA_Data.dbo.all_seasons;
 
 --EXCEPT Query
---Database: 
---Paste Query Here
+--Database: PlayersStatistics.csv AT https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/PlayersStatistics.csv AND NBA_Championship_Teams.csv at https://github.com/CodyFornof/SQL-Queries/blob/main/NBA_Datasets/NBA_Championship_Teams.csv
+SELECT DISTINCT champs.year,
+	stat.player, 
+	stat.pos, 
+	stat.age,
+	champs.Team
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+RIGHT JOIN NBA_Data.dbo.NBA_Championship_Teams AS champs
+	ON champs.year = stat.Year AND stat.tm = champs.team
+WHERE player IS NOT NULL
+EXCEPT 
+SELECT DISTINCT champs.year,
+	stat.player, 
+	stat.pos, 
+	stat.age,
+	champs.Team
+FROM NBA_Data.dbo.PlayersStatistics AS stat
+RIGHT JOIN NBA_Data.dbo.NBA_Championship_Teams AS champs
+	ON champs.year = stat.Year AND stat.tm = champs.team
+WHERE Team = 'Celtics';
 
 --SELECT Subquery
 --Database: 
